@@ -1,0 +1,62 @@
+import tkinter as tk
+from tkinter import messagebox
+
+class EcommerceSystem:
+    def __init__(self):
+        self.users = []
+        self.products = []
+        self.orders = []
+
+    def add_user(self, user):
+        self.users.append(user)
+
+    def add_product(self, product):
+        self.product.append(product)
+        
+    def place_order(self, user, product):
+        if user not in self.users:
+            return "Usuario não cadastrado anta"
+        
+        if product in self.products:
+            self.orders.append((user, product))
+            return "Pedido realizado com sucesso"
+        return "produto não disponivel"
+
+system = EcommerceSystem()
+
+system.add_product("notebook")
+system.add_product("mouse")
+system.add_product("terclado")
+
+def cadastrar_usuario():
+    nome = entry_usuario.get()
+    if nome:
+        system.add_user(nome)
+        messagebox.showinfo("sucesso", f"Usario {nome} cadastro!")
+        entry_usuario.delete(0, tk.END)
+    else:
+        messagebox.showwarning("erro", "digite um nome")
+
+def fazer_pedido():
+    usuario = entry_pedido_usuario.get()
+    produto = entry_produto.get()
+
+    resultado = system.place_order(usuario, produto)
+    messagebox.showinfo("pedido", resultado)
+    atualizar_pedidos()
+
+def atualizar_pedidos():
+    lista_pedidos.delete(0, tk, END)
+    for predido in system.orders:
+        lista_pedidos.insert(tk.END, f"{pedido[0]} comprou {pedido[1]}")
+janela = tk.Tk()
+janela.title("mini E-commerce")
+janela.geometry("500x400")
+
+tk.Label(janela, text="cadastrar usuarios").pack(pady=10)
+
+tk.Label(janela, text="fazer pedido").pack(pady=10)
+entry_pedido_usuario = tk.entry(janela, width=30)
+entry_pedido_usuario.pack()
+entry_pedido_usuario.insert(0, "nome usuario")
+entry_produto = tk.Entry(janela, width=30)
